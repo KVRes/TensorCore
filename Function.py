@@ -6,7 +6,9 @@ class Function:
         X = input.data
         y = self.forward(X)
         output = Variable(y)
+        output.set_creator(self)
         self.input = input
+        self.output = output
         return output
 
     def forward(self, x):
@@ -18,17 +20,17 @@ class Function:
 class Square(Function):
     def forward(self, x):
         return x ** 2
-    
+
     def backward(self, gy):
         X = self.input.data
         grad = gy * 2 * X
         return grad
-        
+
 
 class Exp(Function):
     def forward(self, x):
         return np.exp(x)
-    
+
     def backward(self, gy):
         X = self.input.data
         grad = gy * np.exp(X)

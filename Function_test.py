@@ -24,4 +24,23 @@ def Test2():
     x.grad = A.backward(a.grad)
     print(x.grad)
 
-Test2()
+def Test3():
+    A = Square()
+    B = Exp()
+    C = Square()
+    x = Variable(np.array(0.5))
+    a = A(x)
+    b = B(a)
+    y = C(b)
+    # C(B(A(x)))
+    # |-----> backward
+    # y b a
+    assert y.creator == C
+    assert y.creator.input == b
+    assert y.creator.input.creator == B
+    assert y.creator.input.creator.input == a
+    assert y.creator.input.creator.input.creator == A
+    assert y.creator.input.creator.input.creator.input == x
+    print('Pass')
+
+Test3()
