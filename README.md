@@ -1,4 +1,4 @@
-![](./docs/TensorCore.png)
+![](./docs/TensorCoreH.png)
 
 # TensorCore - an Experimental Educational Deep Learning Framework
 
