@@ -41,6 +41,20 @@ def Test3():
     assert y.creator.input.creator.input == a
     assert y.creator.input.creator.input.creator == A
     assert y.creator.input.creator.input.creator.input == x
-    print('Pass')
+    print('Pass Assert, try BP')
+
+    y.grad = np.array(1.)
+    C = y.creator
+    b = C.input
+    b.grad = C.backward(y.grad)
+
+    B = b.creator
+    a = B.input
+    a.grad = B.backward(b.grad)
+
+    A = a.creator
+    x = A.input
+    x.grad = A.backward(a.grad)
+    print(x.grad)
 
 Test3()
