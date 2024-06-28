@@ -1,6 +1,7 @@
-from Function import Square, Exp
+from Function import Square, Exp, square
 from Variable import Variable
 import numpy as np
+import unittest
 
 def Test1():
     x = Variable(11)
@@ -71,3 +72,18 @@ def Test4():
     print(x.grad)
 
 Test4()
+
+class SquareTest(unittest.TestCase):
+    def test_forward(self):
+        X = Variable(np.array(2.))
+        y = square(X)
+        expected = np.array(4.)
+        self.assertEqual(y.data, expected)
+
+    def test_backward(self):
+        X = Variable(np.array(3.))
+        y = square(X)
+        y.backward()
+
+        expected = np.array(6.)
+        self.assertEqual(X.grad, expected)
