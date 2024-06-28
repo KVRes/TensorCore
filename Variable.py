@@ -4,6 +4,8 @@ class Variable:
     def __init__(self, data) -> None:
         if data is None:
             raise ValueError("data is None")
+        if not isinstance(data, np.ndarray):
+            raise TypeError(f'{type(data)} should be ndarray!')
 
         self.data = data
         self.grad : np.ndarray | None = None
@@ -16,6 +18,9 @@ class Variable:
         self.creator = fx
 
     def backward(self):
+        if self.grad == None:
+            self.grad = np.ones_like(self.data) # default grad = 1
+
         fxs = [self.creator]
         while fxs:
             fx = fxs.pop()
