@@ -1,4 +1,4 @@
-from Function import Square, Exp, square
+from Function import Square, Exp, square, Add, add
 from Variable import Variable
 import numpy as np
 import unittest
@@ -72,8 +72,6 @@ def Test4():
     y.backward()
     print(x.grad)
 
-Test4()
-
 class SquareTest(unittest.TestCase):
     def test_forward(self):
         X = Variable(np.array(2.))
@@ -98,3 +96,12 @@ class SquareTest(unittest.TestCase):
         print(X.grad)
         flag = np.allclose(X.grad, expected)
         self.assertTrue(flag)
+
+def Test5():
+    f = Add()
+    y = f(Variable(np.array(2.)),Variable(np.array(3.)))
+    assert y.data == 5
+    print(y.data)
+    assert add(Variable(np.array(1.)),Variable(np.array(1.))).data == 2
+
+Test5()
