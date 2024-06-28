@@ -57,4 +57,17 @@ def Test3():
     x.grad = A.backward(a.grad)
     print(x.grad)
 
-Test3()
+def Test4():
+    A = Square()
+    B = Exp()
+    C = Square()
+    x = Variable(np.array(0.5))
+    a = A(x)
+    b = B(a)
+    y = C(b)
+
+    y.grad = np.array(1.)
+    y.backward()
+    print(x.grad)
+
+Test4()

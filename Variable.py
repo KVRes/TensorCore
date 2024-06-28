@@ -14,3 +14,10 @@ class Variable:
 
     def set_creator(self, fx):
         self.creator = fx
+
+    def backward(self):
+        f = self.creator
+        if f is not None:
+            X = f.input
+            X.grad = f.backward(self.grad)
+            X.backward()
