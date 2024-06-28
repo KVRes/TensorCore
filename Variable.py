@@ -16,8 +16,10 @@ class Variable:
         self.creator = fx
 
     def backward(self):
-        f = self.creator
-        if f is not None:
-            X = f.input
-            X.grad = f.backward(self.grad)
-            X.backward()
+        fxs = [self.creator]
+        while fxs:
+            fx = fxs.pop()
+            X, y = fx.input, fx.output
+            X.grad = fx.backward(y.grad)
+            if X.creator is not None:
+                fxs.append(X.creator)
