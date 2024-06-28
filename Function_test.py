@@ -2,6 +2,7 @@ from Function import Square, Exp, square
 from Variable import Variable
 import numpy as np
 import unittest
+import Utils as u
 
 def Test1():
     x = Variable(11)
@@ -87,3 +88,13 @@ class SquareTest(unittest.TestCase):
 
         expected = np.array(6.)
         self.assertEqual(X.grad, expected)
+
+    def test_backward_auto(self):
+        X = Variable(np.array(np.random.rand(1)))
+        y = square(X)
+        y.backward()
+        expected = u.numerical_diff(square, X)
+        print(expected)
+        print(X.grad)
+        flag = np.allclose(X.grad, expected)
+        self.assertTrue(flag)
