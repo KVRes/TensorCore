@@ -1,4 +1,4 @@
-<p style="text-align: center"><img style="width: 300px" src="./docs/TensorCore.png"></img></p>
+<p align="center"><img style="width: 300px" src="./docs/TensorCore.png"></img></p>
 
 # TensorCore - an Experimental Educational Deep Learning Framework
 
